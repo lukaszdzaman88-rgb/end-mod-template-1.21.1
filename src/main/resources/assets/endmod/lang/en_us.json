@@ -1,0 +1,47 @@
+{
+  "item.endmod.enderite_ingot": "Enderite Ingot",
+  "item.endmod.raw_enderite": "Raw Enderite",
+  "item.endmod.iron_rod": "Iron Rod",
+  "item.endmod.dragon_charge": "Dragon Charge",
+  "item.endmod.staff_of_teleportation": "Staff Of Teleportation",
+  "item.endmod.enderite_helmet": "Enderite Helmet",
+  "item.endmod.enderite_chestplate": "Enderite Chestplate",
+  "item.endmod.enderite_leggings": "Enderite Leggings",
+  "item.endmod.enderite_boots": "Enderite Boots",
+  "item.endmod.demonic_blade": "Demonic Blade",
+  "item.endmod.demonic_essence": "Demonic Essence",
+  "item.endmod.enderite_sword": "Enderite Sword",
+  "item.endmod.enderite_axe": "Enderite Axe",
+  "item.endmod.enderite_pickaxe": "Enderite Pickaxe",
+  "item.endmod.enderite_hoe": "Enderite Hoe",
+  "item.endmod.enderite_shovel": "Enderite Shovel",
+ "item.endmod.corrupted_scythe": "Corrupted Scythe",
+  "item.endmod.wooden_shortbow": "Wooden Shortbow",
+  "item.endmod.reaper_headgear": "Reaper Headgear",
+  "item.endmod.reaper_chestplate": "Reaper Chestplate",
+  "item.endmod.reaper_leggings": "Reaper Leggings",
+  "item.endmod.reaper_boots": "Reaper Boots",
+  "item.endmod.blaze_burner": "Blaze Burner",
+  "item.endmod.gilded_greatsword": "Gilded Greatsword",
+  "item.endmod.brutes_axe": "Brute's Axe",
+
+
+  "attribute.name.generic.attack_damage": "Melee Damage",
+  "attribute.name.generic.ranged_damage": "Ranged Damage",
+
+
+
+  "block.endmod.enderite_block": "Enderite Block",
+  "block.endmod.enderic_ore": "Enderic Ore",
+
+
+
+
+  "tooltip.endmod.staff_of_teleportation": "Enderman Lite.",
+
+
+
+  "tooltip.endmod.demonic_blade_shift_down": "§ePressing right click summons a sigil that boosts players damage and attack speed by 20% while they're in it. The sigil disappears after 15 seconds. This ability has a 30 second cooldown.§r",
+  "tooltip.endmod.demonic_blade": "Press §eShift§r for more information"
+
+}

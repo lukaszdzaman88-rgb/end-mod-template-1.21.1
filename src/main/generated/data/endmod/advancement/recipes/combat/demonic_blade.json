@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_demonic_essence": {
+      "conditions": {
+        "items": [
+          {
+            "items": "endmod:demonic_essence"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "endmod:demonic_blade"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_demonic_essence"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "endmod:demonic_blade"
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "item": "endmod:enderite_ingot"
+    },
+    "I": {
+      "item": "endmod:iron_rod"
+    },
+    "P": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "pattern": [
+    " EP",
+    "PIE",
+    "EP "
+  ],
+  "result": {
+    "count": 1,
+    "id": "endmod:staff_of_teleportation"
+  }
+}

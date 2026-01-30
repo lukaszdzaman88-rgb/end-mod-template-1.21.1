@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "endmod:enderite_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "endmod:staff_of_teleportation"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "endmod:staff_of_teleportation"
+    ]
+  }
+}

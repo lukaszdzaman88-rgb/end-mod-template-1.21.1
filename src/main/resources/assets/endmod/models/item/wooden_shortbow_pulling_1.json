@@ -1,0 +1,6 @@
+{
+  "parent": "endmod:item/wooden_shortbow",
+  "textures": {
+    "layer0": "endmod:item/wooden_shortbow_pulling_1"
+  }
+}

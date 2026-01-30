@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:dragon_breath"
+    },
+    "F": {
+      "item": "minecraft:fire_charge"
+    },
+    "S": {
+      "item": "minecraft:shulker_shell"
+    }
+  },
+  "pattern": [
+    "SDS",
+    "DFD",
+    "SDS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "endmod:dragon_charge"
+  }
+}
