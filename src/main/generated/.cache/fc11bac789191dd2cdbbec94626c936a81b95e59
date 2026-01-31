@@ -1,9 +1,9 @@
-// 1.21.1	2026-01-26T21:28:16.0755519	End Mod/Recipes
-5608dda70f9023d226ebfb3f533ff6ac977e4abc data\endmod\recipe\dragon_charge.json
-97bdb10b9e0728b85836863a8ef12a0cd910eb85 data\endmod\advancement\recipes\misc\iron_rod.json
-8ee575d71a2949431d407e141e3c0e52f0fdc7dc data\endmod\recipe\iron_rod.json
+// 1.21.1	2026-01-31T19:01:14.1885557	End Mod/Recipes
 c725b4d546488ec187b16724307e57b9540876eb data\endmod\recipe\staff_of_teleportation.json
 1b8c8df920dcf29170c29c8aea131880f4ba04d8 data\endmod\recipe\demonic_blade.json
+8ee575d71a2949431d407e141e3c0e52f0fdc7dc data\endmod\recipe\iron_rod.json
 3aa40ba7fd2aeb4613929b72cc5c75eb765855dc data\endmod\advancement\recipes\combat\demonic_blade.json
 87d6ef85a446f9cf021b8f7399edc28643ccfee0 data\endmod\advancement\recipes\tools\staff_of_teleportation.json
 88877e6d6b9ea50586fa730f73650ff87551a483 data\endmod\advancement\recipes\misc\dragon_charge.json
+97bdb10b9e0728b85836863a8ef12a0cd910eb85 data\endmod\advancement\recipes\misc\iron_rod.json
+5608dda70f9023d226ebfb3f533ff6ac977e4abc data\endmod\recipe\dragon_charge.json
