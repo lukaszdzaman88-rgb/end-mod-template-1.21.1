@@ -57,10 +57,19 @@ public static final Item STAFF_OF_TELEPORTATION = registerItem("staff_of_telepor
 
     //Weapons Reaper
     public static final Item CORRUPTED_SCYTHE = registerItem("corrupted_scythe",
-            new CorruptedScytheItem(new Item.Settings().maxDamage(3276)));
+            new CorruptedScytheItem(
+                    ToolMaterials.NETHERITE,
+                    8.0f,
+                    -3.2f,
+                    4.0f, // <-- TU USTAWIASZ LIFESTEAL (4.0 = 2 serca)
+                    new Item.Settings().fireproof()
+            ));
+
+
+
     public static final Item GILDED_GREATSWORD = registerItem("gilded_greatsword",
             new GildedGreatswordItem(
-                    ToolMaterials.GOLD, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(
+                    ToolMaterials.NETHERITE, new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(
                                     ToolMaterials.NETHERITE,
                                     8,
                                     -3.0f
