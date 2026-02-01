@@ -103,4 +103,115 @@ public abstract class EnchantmentScreenHandlerMixin extends ScreenHandler {
                 if (this.endmod$currentPower >= 30) {
                     this.enchantmentPower[0] = this.endmod$currentPower;
                     this.levelCost[0] = 5;
-                }});}}}
+                } else {
+                    this.enchantmentPower[0] = 0;
+                    this.levelCost[0] = -1;
+                }
+            });
+            this.broadcastChanges();
+        }
+    }
+
+    @Inject(method = "onButtonClick", at = @At("HEAD"), cancellable = true)
+    private void customEnchantButton(PlayerEntity player, int id, CallbackInfoReturnable<Boolean> cir) {
+        if (id != 0) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        if (this.endmod$currentPower < 30) {
+            cir.setReturnValue(false);
+            return;
+        }
+
+        ItemStack itemStack = this.inventory.getStack(0);
+        ItemStack lapisStack = this.inventory.getStack(1);
+
+        int requiredLevel = this.endmod$currentPower;
+        int costLapis = 5;
+        int costLevels = 5;
+
+        if ((lapisStack.getCount() >= costLapis || player.getAbilities().creativeMode)
+                && (player.experienceLevel >= requiredLevel || player.getAbilities().creativeMode)) {
+
+            this.context.run((world, pos) -> {
+                // Wywołanie metody przez Invoker z poprawną nazwą
+                List<EnchantmentLevelEntry> list = this.invokeGenerateEnchantments(itemStack, 0, this.endmod$currentPower);
+
+                if (!list.isEmpty()) {
+                    player.applyEnchantmentCosts(itemStack, costLevels);
+
+                    if (!player.getAbilities().creativeMode) {
+                        lapisStack.decrement(costLapis);
+                        if (lapisStack.isEmpty()) {
+                            this.inventory.setStack(1, ItemStack.EMPTY);
+                        }
+                    }
+
+                    for (EnchantmentLevelEntry entry : list) {
+                        itemStack.addEnchantment(entry.enchantment, entry.level);
+                    }
+
+                    player.incrementStat(Stats.ENCHANT_ITEM);
+                    if (player instanceof net.minecraft.server.network.ServerPlayerEntity) {
+                        net.minecraft.advancement.criterion.Criteria.ENCHANTED_ITEM.trigger((net.minecraft.server.network.ServerPlayerEntity)player, itemStack, costLevels);
+                    }
+                    this.inventory.markDirty();
+                    this.enchantmentId[0] = player.getEnchantmentTableSeed();
+                    this.onContentChanged(this.inventory);
+                    world.playSound(null, pos, SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
+                }
+            });
+
+            cir.setReturnValue(true);
+        } else {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @ModifyVariable(method = "generateEnchantments", at = @At("RETURN"), ordinal = 0)
+    private List<EnchantmentLevelEntry> filterEnchantments(List<EnchantmentLevelEntry> originalList, ItemStack stack) {
+        if (stack.isOf(Items.FISHING_ROD)) {
+            return originalList;
+        }
+
+        if (this.endmod$hasAdvancedShelves) {
+            return originalList;
+        }
+
+        return originalList.stream()
+                .map(entry -> {
+                    int level = entry.level;
+                    var key = entry.enchantment.getKey().orElse(null);
+                    if (key == null) return entry;
+
+                    if (key.equals(Enchantments.INFINITY) ||
+                            key.equals(Enchantments.FIRE_ASPECT) ||
+                            key.equals(Enchantments.FLAME)) {
+                        return null;
+                    }
+
+                    boolean isWeaponEnchant = key.equals(Enchantments.SHARPNESS) ||
+                            key.equals(Enchantments.SMITE) ||
+                            key.equals(Enchantments.BANE_OF_ARTHROPODS) ||
+                            key.equals(Enchantments.POWER) ||
+                            key.equals(Enchantments.PUNCH);
+
+                    if (isWeaponEnchant && level > 1) {
+                        return new EnchantmentLevelEntry(entry.enchantment, 1);
+                    }
+
+                    if (key.equals(Enchantments.EFFICIENCY) ||
+                            key.equals(Enchantments.FORTUNE) ||
+                            key.equals(Enchantments.UNBREAKING)) {
+                        if (level > 3) {
+                            return new EnchantmentLevelEntry(entry.enchantment, 3);
+                        }
+                    }
+
+                    return entry;
+                })
+                .filter(java.util.Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+}
