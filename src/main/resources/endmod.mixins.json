@@ -3,7 +3,8 @@
 	"package": "net.hehex.endmod.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"EnchantmentScreenHandlerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
