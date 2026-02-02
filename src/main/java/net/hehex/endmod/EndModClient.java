@@ -2,10 +2,12 @@ package net.hehex.endmod;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.hehex.endmod.entity.ModEntities;
+import net.hehex.endmod.item.custom.AssassinWeapon;
 import net.hehex.endmod.particle.GoldSparkleParticle;
 import net.hehex.endmod.particle.ModParticles;
 import net.hehex.endmod.util.ModTooltips;
@@ -26,6 +28,7 @@ public class EndModClient implements ClientModInitializer {
         // 4. Inne rejestracje (Też poza Tick Eventem)
         ModTooltips.init();
         ParticleFactoryRegistry.getInstance().register(ModParticles.GOLD_SPARKLE, GoldSparkleParticle.Factory::new);
+        ItemTooltipCallback.EVENT.register(AssassinWeapon::appendTooltip);
 
     }
 }

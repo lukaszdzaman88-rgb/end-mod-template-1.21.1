@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.hehex.endmod.attribute.ModAttributes;
 import net.hehex.endmod.block.EndBlocks;
 import net.hehex.endmod.entity.ModEntities;
 import net.hehex.endmod.event.ModEvents;
@@ -32,6 +33,8 @@ public class EndMod implements ModInitializer {
 		ModModelPredicates.registerModelPredicates();
 		ModParticles.registerParticles();
 		ModEvents.registerModEvents();
+		ModAttributes.registerAttributes();
+
 
 
 

@@ -64,6 +64,10 @@ public static final Item STAFF_OF_TELEPORTATION = registerItem("staff_of_telepor
                     4.0f, // <-- TU USTAWIASZ LIFESTEAL (4.0 = 2 serca)
                     new Item.Settings().fireproof()
             ));
+//Weapon Assasin
+public static final Item WOODEN_DAGGER = registerItem("wooden_dagger",
+        new WoodenDaggerItem(ToolMaterials.WOOD, // Zmień na materiał drewna lub stwórz nowy
+                new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.WOOD, 2, -1.0f))));
 
 
 
@@ -151,6 +155,7 @@ public static final Item ENDERITE_HELMET = registerItem("enderite_helmet",
             fabricItemGroupEntries.add(EndItems.WOODEN_SHORTBOW);
             fabricItemGroupEntries.add(EndItems.BLAZE_BURNER);
             fabricItemGroupEntries.add(EndItems.GILDED_GREATSWORD);
+            fabricItemGroupEntries.add(EndItems.WOODEN_DAGGER);
 
 
 

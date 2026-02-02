@@ -23,11 +23,14 @@
   "item.endmod.reaper_boots": "Reaper Boots",
   "item.endmod.blaze_burner": "Blaze Burner",
   "item.endmod.gilded_greatsword": "Gilded Greatsword",
-  "item.endmod.brutes_axe": "Brute's Axe",
+  "item.endmod.wooden_dagger": "Wooden Dagger",
 
 
   "attribute.name.generic.attack_damage": "Melee Damage",
   "attribute.name.generic.ranged_damage": "Ranged Damage",
+  "attribute.name.generic.endmod.max_stealth": "Max Stealth",
+  "attribute.name.generic.endmod.stealth_regen": "Stealth Regeneration",
+
 
 
 
@@ -35,6 +38,7 @@
   "block.endmod.enderic_ore": "Enderic Ore",
 
 
+  "tooltip.endmod.assassin_weapon": "Assassin Weapon",
 
 
   "tooltip.endmod.staff_of_teleportation": "Enderman Lite.",

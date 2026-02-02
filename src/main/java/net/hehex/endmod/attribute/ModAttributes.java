@@ -14,6 +14,12 @@ public class ModAttributes {
             "ranged_damage",
             new ClampedEntityAttribute("attribute.name.generic.ranged_damage", 0.0, 0.0, 1024.0).setTracked(true)
     );
+    public static final RegistryEntry<EntityAttribute> MAX_STEALTH = register("max_stealth",
+            new ClampedEntityAttribute("attribute.name.generic.endmod.max_stealth", 50.0, 0.0, 1024.0));
+
+    public static final RegistryEntry<EntityAttribute> STEALTH_REGEN = register("stealth_regen",
+            new ClampedEntityAttribute("attribute.name.generic.endmod.stealth_regen", 2.0, 0.0, 1024.0));
+
 
     private static RegistryEntry<EntityAttribute> register(String id, EntityAttribute attribute) {
         // Pamiętaj, aby podmienić "endmod" na Twoje prawdziwe MOD_ID jeśli jest inne

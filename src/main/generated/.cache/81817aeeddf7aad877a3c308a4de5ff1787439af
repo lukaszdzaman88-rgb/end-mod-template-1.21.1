@@ -1,4 +1,4 @@
-// 1.21.1	2026-01-31T19:01:14.1905787	End Mod/Model Definitions
+// 1.21.1	2026-02-02T16:16:09.1167849	End Mod/Model Definitions
 de2bc0c86604da9744a3495e41cff8aee1bebf4c assets\endmod\models\item\enderite_boots_quartz_trim.json
 74ca61b3e8a62ca63ad4f5ac1088c52168e42d8d assets\endmod\blockstates\enderic_ore.json
 c9f59212c349a15614572e662e069e0995e89e8f assets\endmod\models\item\enderite_block.json
@@ -13,8 +13,8 @@ d0e49f14bf47bd4e4d50b43627dcb2a7b9817a7b assets\endmod\models\item\reaper_leggin
 98ddd4b92419c5345a05c450ce0ed8e471dce1b5 assets\endmod\models\item\reaper_leggings_diamond_trim.json
 25bc651c9ce42eac017bac2b1b7ba83f7f0461c8 assets\endmod\models\item\reaper_headgear_iron_trim.json
 11ef506b197749476c849c57f484d25be8d6de7a assets\endmod\models\item\reaper_boots.json
-6ae9de855f73b4c679abf2316f9bb8e64d4aff54 assets\endmod\models\item\reaper_headgear_gold_trim.json
 9c3546fe7861f4d31753dd37546ea7c8fc61c5ff assets\endmod\models\item\enderite_boots_netherite_trim.json
+6ae9de855f73b4c679abf2316f9bb8e64d4aff54 assets\endmod\models\item\reaper_headgear_gold_trim.json
 ea9105f6fb7cd5842c51cf053df98dae6077ae4b assets\endmod\models\item\reaper_chestplate_emerald_trim.json
 90dd4cd0e4b31e618d62ccf01181588f93e18ea6 assets\endmod\models\item\enderite_leggings_quartz_trim.json
 5db483c17560b07a49ed9a68128e24d4b9891a84 assets\endmod\models\item\reaper_chestplate_netherite_trim.json
@@ -74,8 +74,8 @@ bd7eed7548f0f6d5aae9f6f40c2f8b67324649d3 assets\endmod\models\item\reaper_leggin
 33af879913e676e90c9ab92f849b9ae53c8d49c8 assets\endmod\models\item\reaper_boots_amethyst_trim.json
 a34fcb8ab8eebe109b57ecc3502f3f6916ee65ff assets\endmod\models\item\enderite_helmet_redstone_trim.json
 c32fc9f9f26c4b191e0f0b508820c7f3b6df9ebf assets\endmod\models\item\enderite_helmet_iron_trim.json
-35fada0c0bb68558a4f7b4c47c3743b2e6425065 assets\endmod\models\item\reaper_leggings_emerald_trim.json
 553ca8614c890cbd8dd20333652911340e64fe37 assets\endmod\models\item\reaper_headgear_amethyst_trim.json
+35fada0c0bb68558a4f7b4c47c3743b2e6425065 assets\endmod\models\item\reaper_leggings_emerald_trim.json
 c75cc2de2a30edb7392cda24b49f72b84b135f3f assets\endmod\models\item\reaper_leggings_netherite_trim.json
 07137f60e2f9f8ca5e2ac60ab1ac89e542f5feb6 assets\endmod\models\item\reaper_headgear_quartz_trim.json
 b9844b65191a290c2e242c4b5c2be844cc59f939 assets\endmod\models\item\dragon_charge.json
@@ -86,8 +86,8 @@ ecae507b66b0b04842f6f7a6e8a71e184b9f4f66 assets\endmod\models\item\enderite_helm
 6b6367ae8caa595403b6ab34f3095edfa96497af assets\endmod\models\item\reaper_chestplate_quartz_trim.json
 3cf30d7124291a541a060a991d3c4cd75658164d assets\endmod\models\item\reaper_chestplate_amethyst_trim.json
 69b679bbe20fda7ba3d24814481f0e5549dc404c assets\endmod\models\item\enderite_chestplate_netherite_trim.json
-36f254cb9656fff63c3e7053654c81f163b1c658 assets\endmod\models\item\enderite_boots_diamond_trim.json
 2617d54c258508749ba7710558f5369bc62c48b9 assets\endmod\models\item\reaper_headgear_emerald_trim.json
+36f254cb9656fff63c3e7053654c81f163b1c658 assets\endmod\models\item\enderite_boots_diamond_trim.json
 9db38a760b51ad14cc888331126c1bd4345f2d8d assets\endmod\models\item\enderite_leggings.json
 e395959fe3d4ad4b6fec135db7b1717b4fb876f9 assets\endmod\models\item\reaper_leggings_amethyst_trim.json
 792eeb519a6d50358ca4a6eb47225549f05ea19b assets\endmod\models\item\enderite_ingot.json
@@ -106,3 +106,4 @@ def0f844b881207db30052f4ac276cd90fafb806 assets\endmod\models\item\raw_enderite.
 e202bb1c90cfd1cdd77d9e7a41d1735fda110760 assets\endmod\models\block\enderite_block.json
 b3faaa01fb54fb33a8a1b9baaedecdc33a74b5af assets\endmod\models\block\enderic_ore.json
 064fe557083aba83d4db1e08b882c300c79c9b4f assets\endmod\models\item\enderite_boots_amethyst_trim.json
+44c955f5140f9bc41916887d493828ba141be9f4 assets\endmod\models\item\wooden_dagger.json

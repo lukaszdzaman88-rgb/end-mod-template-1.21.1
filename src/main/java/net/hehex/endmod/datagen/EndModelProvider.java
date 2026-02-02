@@ -45,6 +45,7 @@ public class EndModelProvider extends FabricModelProvider {
         itemModelGenerator.register(EndItems.ENDERITE_SWORD, Models.HANDHELD);
         itemModelGenerator.register(EndItems.ENDERITE_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(EndItems.GILDED_GREATSWORD, Models.HANDHELD);
+        itemModelGenerator.register(EndItems.WOODEN_DAGGER, Models.HANDHELD);
 
 
 
