@@ -16,9 +16,12 @@ repositories {
 		content {
 			includeGroup "curse.maven"
 		}
+
 	}
 	maven { url "https://maven.shedaniel.me" }
 	maven { url 'https://maven.wispforest.io/releases' }
+	maven { url = "https://api.modrinth.com/maven" }
+
 
 }
 
@@ -40,6 +43,10 @@ dependencies {
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:16.0.799"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:16.0.799"
 	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	modImplementation "maven.modrinth:jade:${project.jade_version}"
+
+
+
 
 	modImplementation fileTree(dir: 'libs', include: '*.jar')
 
