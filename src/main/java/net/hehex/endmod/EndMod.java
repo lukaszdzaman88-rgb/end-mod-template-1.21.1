@@ -1,7 +1,8 @@
 package net.hehex.endmod;
 
 import net.fabricmc.api.ModInitializer;
-
+import net.fabricmc.fabric.api.entity.event.v1.EntityAttributeModificationEvents;
+import net.minecraft.entity.EntityType;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -13,6 +14,7 @@ import net.hehex.endmod.item.EndItems;
 import net.hehex.endmod.particle.ModParticles;
 import net.hehex.endmod.util.ModModelPredicates;
 import net.hehex.endmod.util.ModTooltips;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
@@ -35,6 +37,12 @@ public class EndMod implements ModInitializer {
 		ModEvents.registerModEvents();
 		ModAttributes.registerAttributes();
 
+		EntityAttributeModificationEvents.MODIFY_ENTITY_ATTRIBUTES.register((type, builder) -> {
+			if (type == EntityType.PLAYER) {
+				builder.add(ModAttributes.MAX_STEALTH);
+				builder.add(ModAttributes.STEALTH_REGEN);
+			}
+		});
 
 
 

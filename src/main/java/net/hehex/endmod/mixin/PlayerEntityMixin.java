@@ -12,6 +12,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,7 +28,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
     @Shadow public abstract float getAttackCooldownProgress(float baseTime);
     @Shadow public abstract void resetLastAttackedTicks();
 
-    // Rejestrujemy zmienną stealth jako TrackedData, żeby klient o niej wiedział (do renderowania pasków/tooltipów)
+    // 1. Rejestracja zmiennej Stealth (widocznej dla klienta i serwera)
     @Unique
     private static final TrackedData<Float> CURRENT_STEALTH = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.FLOAT);
 
@@ -38,12 +39,13 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
         super(entityType, world);
     }
 
+    // 2. Inicjalizacja danych (Wersja 1.21 używa buildera)
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     protected void initStealthData(DataTracker.Builder builder, CallbackInfo ci) {
-        // W 1.21 initDataTracker używa buildera
         builder.add(CURRENT_STEALTH, 0.0f);
     }
 
+    // Implementacja interfejsu AssassinPlayer
     @Override
     public float getStealth() {
         return this.dataTracker.get(CURRENT_STEALTH);
@@ -54,47 +56,47 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
         this.dataTracker.set(CURRENT_STEALTH, stealth);
     }
 
+    // 3. Główna logika (uruchamiana co tick gry)
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickStealth(CallbackInfo ci) {
-        if (this.getWorld().isClient) return; // Logika tylko po stronie serwera
+        if (this.getWorld().isClient) return; // Tylko serwer oblicza stealth
 
         PlayerEntity player = (PlayerEntity) (Object) this;
         ItemStack currentStack = player.getMainHandStack();
 
-        // Sprawdź czy gracz zmienił broń - jeśli tak, reset stealth
+        // Jeśli zmieniono broń -> reset stealth
         if (!ItemStack.areItemsEqual(currentStack, lastMainHandStack)) {
             this.setStealth(0);
             lastMainHandStack = currentStack.copy();
             return;
         }
 
-        // Logika generowania
+        // Jeśli trzymasz broń Assasina
         if (currentStack.getItem() instanceof AssassinWeapon) {
-            // Sprawdź czy przedmiot NIE jest w offhandzie (tutaj sprawdzamy mainhand, więc jest ok,
-            // ale musimy upewnić się, że to nie działa, gdy assasin jest w offhandzie a w mainhandzie co innego)
-            // Kod powyżej pobiera MainHandStack, więc jeśli AssasinWeapon jest w offhandzie, ten warunek nie przejdzie.
+            // Sprawdź czy gracz ma zarejestrowane atrybuty (ważne przy crashach!)
+            if (player.getAttributes().hasAttribute(ModAttributes.MAX_STEALTH)) {
 
-            // Warunek: nie atakowanie. Sprawdzamy cooldown ataku.
-            // Jeśli jest w pełni naładowany (1.0), to znaczy że gracz nie atakuje od jakiegoś czasu.
-            if (this.getAttackCooldownProgress(0.0f) >= 1.0f) {
-                float maxStealth = (float) player.getAttributeValue(ModAttributes.MAX_STEALTH);
-                float regen = (float) player.getAttributeValue(ModAttributes.STEALTH_REGEN);
-                float current = this.getStealth();
+                // Warunek: Cooldown ataku pełny (1.0) = gracz nie atakuje
+                if (this.getAttackCooldownProgress(0.0f) >= 1.0f) {
+                    float maxStealth = (float) player.getAttributeValue(ModAttributes.MAX_STEALTH);
+                    float regen = (float) player.getAttributeValue(ModAttributes.STEALTH_REGEN);
+                    float current = this.getStealth();
 
-                if (current < maxStealth) {
-                    this.setStealth(Math.min(current + regen, maxStealth));
+                    if (current < maxStealth) {
+                        this.setStealth(Math.min(current + regen, maxStealth));
+                    }
                 }
             }
         } else {
-            // Jeśli trzymasz coś innego, stealth spada do 0
+            // Jeśli to nie broń assasina, zresetuj stealth
             if (this.getStealth() > 0) {
                 this.setStealth(0);
             }
         }
     }
 
-    // Modyfikacja obrażeń
-    @ModifyVariable(method = "attack", at = @At(value = "STORE", ordinal = 0), name = "f") // 'f' to zazwyczaj baseDamage w metodzie attack
+    // 4. Modyfikacja obrażeń (Bonus 25% za każde 10 stealth)
+    @ModifyVariable(method = "attack", at = @At(value = "STORE", ordinal = 0), name = "f")
     private float modifyDamageWithStealth(float damage) {
         PlayerEntity player = (PlayerEntity) (Object) this;
         ItemStack stack = player.getMainHandStack();
@@ -102,8 +104,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
         if (stack.getItem() instanceof AssassinWeapon) {
             float stealth = this.getStealth();
             if (stealth > 0) {
-                // Mechanika: każde 10 stealth zwiększa obrażenia o 25% (0.25)
-                // Wzór: Base * (1 + (Stealth / 10) * 0.25)
+                // Wzór: Każde 10 pkt = +25%
                 float multiplier = 1.0f + (stealth / 10.0f) * 0.25f;
                 return damage * multiplier;
             }
@@ -111,7 +112,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
         return damage;
     }
 
-    // Obsługa efektu 100% stealth (Stealth Strike)
+    // 5. Efekt Specjalny (Stealth Strike) przy ataku
     @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private void onStealthAttack(Entity target, CallbackInfo ci) {
         if (target instanceof LivingEntity livingTarget) {
@@ -119,15 +120,19 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
             ItemStack stack = player.getMainHandStack();
 
             if (stack.getItem() instanceof AssassinWeapon assassinWeapon) {
+                // Ponowne sprawdzenie atrybutów dla bezpieczeństwa
+                if (!player.getAttributes().hasAttribute(ModAttributes.MAX_STEALTH)) return;
+
                 float stealth = this.getStealth();
                 float maxStealth = (float) player.getAttributeValue(ModAttributes.MAX_STEALTH);
 
-                // Sprawdź czy to "Pełny Stealth Strike" (z małym marginesem błędu dla liczb zmiennoprzecinkowych)
-                if (stealth >= maxStealth - 0.1f) {
+                // Jeśli stealth jest pełny (z marginesem błędu)
+                if (stealth >= maxStealth - 0.5f) {
+                    // Wywołaj specjalny efekt broni
                     assassinWeapon.onStealthStrike(stack, player, livingTarget);
 
-                    // Efekt wizualny/dźwiękowy (opcjonalnie)
-                    player.getWorld().sendEntityStatus(player, (byte) 42); // Przykładowy status, można dodać własne particles
+                    // Efekt dźwiękowy/wizualny (krytyk)
+                    player.getWorld().sendEntityStatus(target, (byte) 4);
                 }
 
                 // Reset stealth po ataku
