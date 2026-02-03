@@ -1,5 +1,8 @@
 package net.hehex.endmod.attribute;
 
+import net.minecraft.entity.EntityType;
+
+
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.registry.Registries;
@@ -15,11 +18,10 @@ public class ModAttributes {
             new ClampedEntityAttribute("attribute.name.generic.ranged_damage", 0.0, 0.0, 1024.0).setTracked(true)
     );
     public static final RegistryEntry<EntityAttribute> MAX_STEALTH = register("max_stealth",
-            new ClampedEntityAttribute("attribute.name.generic.endmod.max_stealth", 50.0, 0.0, 1024.0));
+            new ClampedEntityAttribute("attribute.name.generic.endmod.max_stealth", 100.0, 0.0, 1024.0));
 
     public static final RegistryEntry<EntityAttribute> STEALTH_REGEN = register("stealth_regen",
-            new ClampedEntityAttribute("attribute.name.generic.endmod.stealth_regen", 2.0, 0.0, 1024.0));
-
+            new ClampedEntityAttribute("attribute.name.generic.endmod.stealth_regen", 1.0, 0.0, 1024.0));
 
     private static RegistryEntry<EntityAttribute> register(String id, EntityAttribute attribute) {
         // Pamiętaj, aby podmienić "endmod" na Twoje prawdziwe MOD_ID jeśli jest inne
@@ -27,6 +29,6 @@ public class ModAttributes {
     }
 
     public static void registerAttributes() {
-        // Pusta metoda, służy tylko do załadowania klasy
+
     }
 }
