@@ -59,15 +59,15 @@ public static final Item STAFF_OF_TELEPORTATION = registerItem("staff_of_telepor
     public static final Item CORRUPTED_SCYTHE = registerItem("corrupted_scythe",
             new CorruptedScytheItem(
                     ToolMaterials.NETHERITE,
-                    8.0f,
+                    10.0f,
                     -3.2f,
-                    4.0f, // <-- TU USTAWIASZ LIFESTEAL (4.0 = 2 serca)
+                    2.0f, // <-- TU USTAWIASZ LIFESTEAL (4.0 = 2 serca)
                     new Item.Settings().fireproof()
             ));
 //Weapon Assasin
 public static final Item WOODEN_DAGGER = registerItem("wooden_dagger",
         new WoodenDaggerItem(ToolMaterials.WOOD, // Zmień na materiał drewna lub stwórz nowy
-                new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.WOOD, 2, -1.0f))));
+                new Item.Settings().attributeModifiers(SwordItem.createAttributeModifiers(ToolMaterials.WOOD, 2, -1.4f))));
 
 
 

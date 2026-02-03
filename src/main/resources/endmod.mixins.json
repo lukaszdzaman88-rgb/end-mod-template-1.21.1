@@ -6,7 +6,8 @@
 		"ExampleMixin",
 		"PlayerEntityMixin",
 		"PlayerAttributesMixin",
-		"LivingEntityMixin"
+		"LivingEntityMixin",
+		"ItemStackMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.hehex.endmod.entity.ModEntities;
+import net.hehex.endmod.event.ModClientEvents;
 import net.hehex.endmod.item.custom.AssassinWeapon;
 import net.hehex.endmod.particle.GoldSparkleParticle;
 import net.hehex.endmod.particle.ModParticles;
@@ -29,6 +30,7 @@ public class EndModClient implements ClientModInitializer {
         ModTooltips.init();
         ParticleFactoryRegistry.getInstance().register(ModParticles.GOLD_SPARKLE, GoldSparkleParticle.Factory::new);
         ItemTooltipCallback.EVENT.register(AssassinWeapon::appendTooltip);
+        ModClientEvents.register();
 
     }
 }
