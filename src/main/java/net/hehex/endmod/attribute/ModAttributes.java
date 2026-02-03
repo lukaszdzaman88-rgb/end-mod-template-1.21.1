@@ -23,6 +23,14 @@ public class ModAttributes {
     public static final RegistryEntry<EntityAttribute> STEALTH_REGEN = register("stealth_regen",
             new ClampedEntityAttribute("attribute.name.generic.endmod.stealth_regen", 1.0, 0.0, 1024.0));
 
+    public static final RegistryEntry<EntityAttribute> MAX_MANA = register("max_mana",
+            new ClampedEntityAttribute("attribute.endmod.max_mana", 100.0, 0.0, 10000.0).setTracked(true));
+
+    // Bazowy magic damage: 0
+    public static final RegistryEntry<EntityAttribute> MAGIC_DAMAGE = register("magic_damage",
+            new ClampedEntityAttribute("attribute.endmod.magic_damage", 0.0, 0.0, 1024.0).setTracked(true));
+
+
     private static RegistryEntry<EntityAttribute> register(String id, EntityAttribute attribute) {
         // Pamiętaj, aby podmienić "endmod" na Twoje prawdziwe MOD_ID jeśli jest inne
         return Registry.registerReference(Registries.ATTRIBUTE, Identifier.of("endmod", id), attribute);
