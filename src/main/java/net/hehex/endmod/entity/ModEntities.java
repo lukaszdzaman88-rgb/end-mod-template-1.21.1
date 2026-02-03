@@ -1,10 +1,12 @@
 package net.hehex.endmod.entity;
 
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.hehex.endmod.EndMod;
 import net.hehex.endmod.entity.custom.StaffPearlEntity;
 import net.hehex.endmod.entity.custom.WitherSlashEntity;
 import net.minecraft.block.entity.EnderChestBlockEntity;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;

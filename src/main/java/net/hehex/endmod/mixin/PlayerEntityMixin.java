@@ -11,6 +11,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,14 +36,52 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
     @Unique
     private boolean isProcessingAttack = false;
 
+    @Unique
+    private static final TrackedData<Float> CURRENT_MANA = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.FLOAT);
+    @Unique
+    private int manaRegenTimer = 0;
+    @Unique
+    private float lastManaValue = -1;
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    @Inject(method = "initDataTracker", at = @At("TAIL"))
+    protected void initManaData(DataTracker.Builder builder, CallbackInfo ci) {
+        // Inicjalizacja Many
+        builder.add(CURRENT_MANA, 100.0f);
     }
 
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     protected void initStealthData(DataTracker.Builder builder, CallbackInfo ci) {
         builder.add(CURRENT_STEALTH, 0.0f);
     }
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tickMana(CallbackInfo ci) {
+        if (!this.getWorld().isClient) {
+            // --- LOGIKA MANY ---
+            float maxMana = (float) this.getAttributeValue(ModAttributes.MAX_MANA);
+            float current = this.getDataTracker().get(CURRENT_MANA);
+
+            if (current != lastManaValue) {
+                manaRegenTimer = 0;
+                lastManaValue = current;
+            } else {
+                manaRegenTimer++;
+            }
+
+            // Regeneracja co 1 sekundę (20 ticków) braku aktywności
+            if (manaRegenTimer >= 20 && current < maxMana) {
+                // 15% max many na sekundę -> dzielimy przez 20 ticków
+                float regenPerTick = (maxMana * 0.15f) / 20.0f;
+                setMana(Math.min(maxMana, current + regenPerTick));
+            }
+
+            // Zabezpieczenie przed przekroczeniem max many
+            if (current > maxMana) {
+                setMana(maxMana);
+            }}}
 
     @Override
     public float getStealth() {
@@ -64,6 +103,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
     public void setAttacking(boolean attacking) {
         this.isProcessingAttack = attacking;
     }
+
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickStealth(CallbackInfo ci) {
@@ -149,5 +189,38 @@ public abstract class PlayerEntityMixin extends LivingEntity implements Assassin
         this.isProcessingAttack = false;
     }
 
-    // USUNIĘTO swingHand Z TEGO PLIKU ABY UNIKNĄĆ OSTRZEŻEŃ!
-}
+    @Override
+    public float getMana() {
+        return this.getDataTracker().get(CURRENT_MANA);
+    }
+
+    @Override
+    public void setMana(float mana) {
+        this.getDataTracker().set(CURRENT_MANA, mana);
+    }
+
+    @Override
+    public void addMana(float amount) {
+        setMana(getMana() + amount);
+    }
+
+    @Override
+    public boolean useMana(float amount) {
+        float current = getMana();
+        if (current >= amount) {
+            setMana(current - amount);
+            return true;
+        }
+        return false;
+    }
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    public void writeManaNbt(NbtCompound nbt, CallbackInfo ci) {
+        nbt.putFloat("EndModMana", this.getDataTracker().get(CURRENT_MANA));
+
+        @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+        public void readManaNbt(NbtCompound nbt, CallbackInfo ci) {
+            if (nbt.contains("EndModMana")) {
+                this.getDataTracker().set(CURRENT_MANA, nbt.getFloat("EndModMana"));
+            }
+
+}}}
